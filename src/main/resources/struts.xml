@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    
+    <package name="default" extends="json-default" namespace="/">
+        
+        <interceptors>
+            <interceptor name="security" class="org.pierre.railwaygraph.util.SecurityInterceptor">
+                <param name="mandatoryAuthentication">/services/json</param>
+            </interceptor>
+            <interceptor-stack name="securedBasicStack">
+                <interceptor-ref name="security" />
+                <interceptor-ref name="defaultStack" />
+            </interceptor-stack>
+            <interceptor-stack name="jsonServletConfig">
+                <interceptor-ref name="json"/>
+                <interceptor-ref name="defaultStack"/>                
+             </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="securedBasicStack" />
+        
+        <global-results>
+           <result name="authenticate" type="redirectAction">
+               <param name="actionName">login</param>
+               <param name="namespace">/</param>
+           </result>
+        </global-results>
+        
+        <action name="login" class="org.pierre.railwaygraph.actions.BaseAction">
+            <result name="success">/jsp/login.jsp</result>
+        </action>
+        
+        <action name="loginAuth" class="org.pierre.railwaygraph.actions.LoginAuthAction">
+            <interceptor-ref name="jsonServletConfig"/>
+             <result type="json" />
+             <result name="error" type="json" />
+         </action>
+        
+        <action name="logout" class="org.pierre.railwaygraph.actions.LogoutAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">login</param>
+                <param name="namespace">/</param>
+            </result>
+        </action>
+
+    </package>
+     
+     <package name="dojo-json" namespace="/services/json" extends="default">
+         <interceptors>
+             <interceptor-stack name="jsonSecuredServletConfig">
+                 <interceptor-ref name="security" />
+                 <interceptor-ref name="jsonServletConfig" />
+             </interceptor-stack>
+         </interceptors>
+         <default-interceptor-ref name="jsonSecuredServletConfig" />
+         
+         <action name="railwayNetwork" class="org.pierre.railwaygraph.actions.railwaynetwork.RailwayNetworkIndexAction" >
+            <result name="success">/jsp/railwayNetwork.jsp</result>
+            <interceptor-ref name="securedBasicStack" />
+        </action>
+        
+        <action name="treestore" class="org.pierre.railwaygraph.actions.treesearch.TreeStoreAction" >
+            <result type="json" />
+            <result name="error" type="json" />
+        </action>
+        
+        <action name="shortestPath" class="org.pierre.railwaygraph.actions.shortestpath.ShortestPathAction" >
+             <result type="json" />
+             <result name="error" type="json" />
+         </action>
+         
+         <action name="editRailwayStation" class="org.pierre.railwaygraph.actions.railwaystation.EditRailwayStationAction" >
+             <result type="json" />
+             <result name="error" type="json" />
+         </action>
+         
+         <action name="addRailwayStation" class="org.pierre.railwaygraph.actions.railwaystation.AddRailwayStationAction" >
+             <result type="json" />
+             <result name="error" type="json" />
+         </action>
+         
+         <action name="deleteRailwayStation" class="org.pierre.railwaygraph.actions.railwaystation.DeleteRailwayStationAction" >
+             <result type="json" />
+             <result name="error" type="json" />
+         </action>
+         
+         <action name="editSection" class="org.pierre.railwaygraph.actions.section.EditSectionAction" >
+             <result type="json" />
+             <result name="error" type="json" />
+         </action>
+         
+         <action name="addSection" class="org.pierre.railwaygraph.actions.section.AddSectionAction" >
+             <result type="json" />
+             <result name="error" type="json" />
+         </action>
+         
+         <action name="deleteSection" class="org.pierre.railwaygraph.actions.section.DeleteSectionAction" >
+             <result type="json" />
+             <result name="error" type="json" />
+         </action>
+         
+         <action name="editPath" class="org.pierre.railwaygraph.actions.path.EditPathAction" >
+             <result type="json" />
+             <result name="error" type="json" />
+         </action>
+         
+         <action name="addPath" class="org.pierre.railwaygraph.actions.path.AddPathAction" >
+             <result type="json" />
+             <result name="error" type="json" />
+         </action>
+         
+         <action name="deletePath" class="org.pierre.railwaygraph.actions.path.DeletePathAction" >
+             <result type="json" />
+             <result name="error" type="json" />
+         </action>
+        
+     </package>
+     
+</struts>

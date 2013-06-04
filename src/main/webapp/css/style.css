@@ -1,0 +1,62 @@
+/* 
+    Document   : style
+    Created on : 9 avr. 2013, 21:45:38
+    Author     : Pierre
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+ 
+#appLayout {
+    height: 100%;
+}
+
+#leftCol {
+    width: 33%;
+}
+ 
+.claro .edgePanel {
+    background-image: -moz-linear-gradient(top right, #d0e9fc 0%, #ffffff 100%); 
+    background-image: -webkit-linear-gradient(top right, #d0e9fc 0%, #ffffff 100%); 
+    background-repeat: no-repeat;
+}
+
+label {
+    float: left;
+    margin-right: 1em;
+    text-align: right;
+    width: 8em;
+}
+
+#btn1Container {
+    margin-top: 1em;
+    margin-left: 12em;
+}
+
+#logoutBtnContainer {
+    float: right;
+    /*height: 20px;*/
+    /*width: 20px;*/
+}
+
+.leftFloat {
+    float: left;
+}
+
+.addPathLabel {
+    width: 5em;
+}
+
+.dijitDialogTitleBar {
+    text-align: center;
+}
+
+#topContainer {
+    height: 30px;
+}
